@@ -1,3 +1,4 @@
+
 "use client";
 import { useEffect, useState } from "react";
 
@@ -36,8 +37,16 @@ const UNITS: Record<string, string> = {
 };
 
 export const normProduct = (p: any) => {
-  const pct = Number(p.change?.pct ?? 0);
-  const signed = p.change?.dir === "up" ? pct : p.change?.dir === "down" ? -pct : 0;
+const today = Number(p.today ?? 0);
+const yesterday = Number(p.yesterday ?? 0);
+
+const pct =
+  yesterday > 0
+    ? ((today - yesterday) / yesterday) * 100
+    : 0;
+
+const signed = Number(pct.toFixed(2));
+
   return {
     id: String(p.id),
     slug: p.slug ?? "",
