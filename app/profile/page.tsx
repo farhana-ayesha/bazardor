@@ -46,11 +46,22 @@ export default function ProfilePage() {
     }
   }
 
-  async function handleLogout() {
-    await authClient.signOut();
-    toast.success("সাইন আউট হয়েছে");
-    router.push("/");
+    async function handleLogout() {
+  try {
+    const res = await authClient.signOut();
+
+    if (res.error) {
+      toast.error("সাইন আউট করা যায়নি");
+      return;
+    }
+
+    toast.success("সাইন আউট সফল হয়েছে");
+    window.location.replace("/");
+  } catch {
+    toast.error("সাইন আউট করতে সমস্যা হয়েছে");
   }
+}
+
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">

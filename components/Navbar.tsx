@@ -13,10 +13,29 @@ export default function Navbar() {
   const { data: prods } = useProducts();
 
   const out = async () => {
-    await authClient.signOut();
-    toast.success("সাইন আউট হয়েছে");
-    router.push("/");
-  };
+  try {
+    const res = await authClient.signOut();
+
+    if (res.error) {
+      toast.error("সাইন আউট করা যায়নি");
+      return;
+    }
+
+    toast.success("সাইন আউট সফল হয়েছে");
+
+    // Reload the app and clear stale session UI
+    window.location.replace("/");
+  } catch {
+    toast.error("সাইন আউট করতে সমস্যা হয়েছে");
+  }
+};
+
+
+
+
+
+
+  const closeMenu = () => (document.activeElement as HTMLElement)?.blur();
 
   return (
     <header className="bg-white border-b border-base-300">
@@ -31,15 +50,29 @@ export default function Navbar() {
 
         <div className="flex items-center gap-2">
           {session ? (
-            <>
-              <Link href="/profile" className="flex items-center gap-2">
+            <div className="dropdown dropdown-end">
+              <div tabIndex={0} role="button" className="flex items-center gap-2 cursor-pointer">
                 {session.user.image
                   ? <img src={session.user.image} alt="" className="w-9 h-9 rounded-full" />
                   : <span className="w-9 h-9 rounded-full bg-primary text-white grid place-items-center">{session.user.name?.[0]}</span>}
                 <span className="hidden sm:block font-medium">{session.user.name}</span>
-              </Link>
-              <button onClick={out} className="btn btn-sm btn-outline">সাইন আউট</button>
-            </>
+                <span className="text-xs text-gray-500">▾</span>
+              </div>
+
+              <div tabIndex={0} className="dropdown-content mt-3 w-72 bg-white rounded-xl shadow-lg border border-base-300 p-4 z-50">
+                <p className="font-bold">{session.user.name}</p>
+                <p className="text-sm text-gray-500 break-all">{session.user.email}</p>
+
+                <div className="border-t border-base-300 my-3"></div>
+
+                <Link href="/profile" onClick={closeMenu} className="flex items-center gap-2 py-2 hover:text-primary">
+                  👤 আমার প্রোফাইল
+                </Link>
+                <button onClick={out} className="flex items-center gap-2 py-2 text-red-600 w-full text-left">
+                  ↩ সাইন আউট
+                </button>
+              </div>
+            </div>
           ) : (
             <>
               <Link href="/signin" className="btn btn-sm sm:btn-md btn-outline">সাইন ইন</Link>
