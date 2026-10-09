@@ -23,5 +23,5 @@ export const auth = betterAuth({
   emailAndPassword: { enabled: true },
   socialProviders,
 
-  trustedOrigins: ["http://localhost:3000", "http://localhost:30001", "http://localhost:3002", "https://bazardor.vercel.app"],
+  trustedOrigins: ["http://localhost:3000", "http://localhost:3001", "http://localhost:3002", "https://bazardor-gamma.vercel.app"],
 });
