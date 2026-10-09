@@ -25,7 +25,17 @@ export default function CategoryPage() {
   }
 
   if (isLoading || !prods) {
-    return <p className="py-20 text-center">লোড হচ্ছে...</p>;
+    
+   return (
+  <div className="max-w-6xl mx-auto px-4 py-8">
+    <div className="skeleton h-28 rounded-2xl"></div>
+    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+      {[1, 2, 3, 4, 5, 6].map((i) => (
+        <div key={i} className="skeleton h-40 rounded-2xl"></div>
+      ))}
+    </div>
+  </div>
+);
   }
 
   return (
