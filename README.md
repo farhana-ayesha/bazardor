@@ -33,6 +33,8 @@ npm run dev
 ```
 
 `.env` ফাইলে এগুলো দিতে হবে:
+
+```
 MONGODB_URI=
 BETTER_AUTH_SECRET=
 BETTER_AUTH_URL=http://localhost:3000
@@ -40,7 +42,4 @@ GOOGLE_CLIENT_ID=
 GOOGLE_CLIENT_SECRET=
 GITHUB_CLIENT_ID=
 GITHUB_CLIENT_SECRET=
-
-## 📄 License
-
-For learning purposes (Programming Hero Assignment 07).
+```
