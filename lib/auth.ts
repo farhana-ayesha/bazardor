@@ -22,4 +22,6 @@ export const auth = betterAuth({
   database: mongodbAdapter(client.db()),
   emailAndPassword: { enabled: true },
   socialProviders,
+
+  trustedOrigins: ["http://localhost:3000", "http://localhost:30001", "https://bazardor.vercel.app"],
 });
